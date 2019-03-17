@@ -29,6 +29,7 @@ np.savetxt('calculations.txt', scores,fmt='%s')
 #
 
 # samo cepaj
-
+#                cosine             braycurtis               canberra                person            hellinger         wasserstein       energy distance        calinski harabaz
+            #0.6706 je najveci koeficijent za sill i dobijen je sa wasserstein_distancom...
 
 
