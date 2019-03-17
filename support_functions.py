@@ -12,8 +12,3 @@ def distance_matrix(data,metr):
 
 
 
-
-
-# deluje mi okej, samo treba raditi polovinu matrice i onda preslikati... 
-# ne budi lenj kao u matlabu .. 
-

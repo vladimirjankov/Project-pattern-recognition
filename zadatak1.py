@@ -23,13 +23,9 @@ print(scores)
 np.savetxt('calculations.txt', scores,fmt='%s')
 
 
-#napravi slike od matrica
-#jackknife jeste da daje shit rez ali trazeno je ... napravi.
+#jackknife 
 #RM isto...
-#
 
-# samo cepaj
-#                cosine             braycurtis               canberra                person            hellinger         wasserstein       energy distance        calinski harabaz
-            #0.6706 je najveci koeficijent za sill i dobijen je sa wasserstein_distancom...
+
 
 

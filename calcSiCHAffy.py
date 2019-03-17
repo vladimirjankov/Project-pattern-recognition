@@ -68,8 +68,3 @@ def calcSiCHAffy(data,label,name):
     return [name,silhouette_score_cosine,silhouette_score_braycurtis, silhouette_score_canberra,silhouette_score_correlation,
     silhouette_score_hellinger,silhouette_score_wasserstein,silhouette_energy_distance,CH]
 
-
- # Rangmatrix,kcz,
- #   img = Image.fromarray(dist_cosine,mode='I')
- #   img.show()
- #   img.save(name+'.png')
