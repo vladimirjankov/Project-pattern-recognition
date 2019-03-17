@@ -14,7 +14,6 @@ scores = []
 for i in range(0,len(data_file_names)):
     path_data_tmp = path_data + data_file_names[i]
     data = pd.read_csv(path_data_tmp, delimiter=' ')
-#    data = np.array(data)
     label = pd.read_csv(path_label+ label_file_names[i], delimiter=' ')
     label = np.array(label)
     scores.append(calcSiCHAffy(data,np.ravel(label),data_file_names[i]))
@@ -24,9 +23,10 @@ print(scores)
 np.savetxt('calculations.txt', scores,fmt='%s')
 
 
-
-# distance sutra napravi da rade normalno 
-# proveri ovo sa parametrom image.fromarray
+#napravi slike od matrica
+#jackknife jeste da daje shit rez ali trazeno je ... napravi.
+#RM isto...
+#
 
 # samo cepaj
 

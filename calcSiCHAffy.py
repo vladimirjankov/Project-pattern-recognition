@@ -31,8 +31,7 @@ def calcSiCHAffy(data,label,name):
     silhouette_score_hellinger,silhouette_score_wasserstein,silhouette_energy_distance,CH]
 
 
-# moras otkucati bar metrika jbg takva tura.. .
-# Rangmatrix,kcz,
+ # Rangmatrix,kcz,
  #   img = Image.fromarray(dist_cosine,mode='I')
  #   img.show()
  #   img.save(name+'.png')

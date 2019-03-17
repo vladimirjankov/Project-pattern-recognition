@@ -5,9 +5,9 @@ def distance_matrix(data,metr):
     dist_matrix = np.zeros((m,m), dtype=float)
 
     for i in range(0,m):
-        for j in range(0,m):
+        for j in range(i,m):
             dist_matrix[i,j] = metr(data.values[i,:],data.values[j,:])
-            
+            dist_matrix[j,i] = dist_matrix[i,j]
     return dist_matrix
 
 
