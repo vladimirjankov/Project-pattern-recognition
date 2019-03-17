@@ -3,8 +3,9 @@ from scipy.spatial.distance import braycurtis,canberra,correlation
 from scipy.stats import wasserstein_distance, energy_distance,cosine
 from support_functions import distance_matrix
 from PIL import Image
-from distances import hellinger,cosine_distance
+from distances import hellinger,cosine_distance,dist_kulczynski
 from matplotlib import pyplot as plt
+import numpy as np
 
 def calcSiCHAffy(data,label,name):
     dist_cosine = distance_matrix(data,cosine_distance)
@@ -63,8 +64,15 @@ def calcSiCHAffy(data,label,name):
     plt.savefig('Affy/distance_map/'+name[0:len(name)-4] +'_energy_distance.jpg')
     plt.close()
 
+    dist_kulczyn= dist_kulczynski(np.array(data),strict=True)
+    silhouette_kulczynski = metrics.silhouette_score(dist_kulczyn,label,metric='precomputed')
+    plt.imshow(dist_kulczyn,cmap='autumn')
+    plt.colorbar()
+    plt.savefig('Affy/distance_map/'+name[0:len(name)-4] +'_kulczynski.jpg')
+    plt.close()
+
 
     CH = metrics.calinski_harabaz_score(data,label)
     return [name,silhouette_score_cosine,silhouette_score_braycurtis, silhouette_score_canberra,silhouette_score_correlation,
-    silhouette_score_hellinger,silhouette_score_wasserstein,silhouette_energy_distance,CH]
+    silhouette_score_hellinger,silhouette_score_wasserstein,silhouette_energy_distance,silhouette_kulczynski,CH]
 

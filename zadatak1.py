@@ -22,8 +22,9 @@ print(scores)
 
 np.savetxt('calculations.txt', scores,fmt='%s')
 
-
-#jackknife 
+    #         cosine             braycurtis               canberra                person            hellinger         wasserstein       energy distance    kcz    calinski harabaz
+   #         0.6706 je najveci koeficijent za sill i dobijen je sa wasserstein_distancom...
+#jackknife  izbaci jer ces svakako izbacivati atribute sa PCA.. (beskorisne kalkulacije)
 #RM isto...
 
 
