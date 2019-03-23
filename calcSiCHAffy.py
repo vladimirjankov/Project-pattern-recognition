@@ -1,13 +1,16 @@
 from sklearn import metrics
 from scipy.spatial.distance import braycurtis,canberra,correlation
 from scipy.stats import wasserstein_distance, energy_distance,cosine
-from support_functions import distance_matrix
+from support_functions import distance_matrix,normalise_data,distance_matrix_np
 from PIL import Image
-from distances import hellinger,cosine_distance,dist_kulczynski
+from distances import hellinger,cosine_distance,dist_kulczynski, jack_knife
 from matplotlib import pyplot as plt
 import numpy as np
 
 def calcSiCHAffy(data,label,name):
+
+    normed_data = normalise_data(np.array(data,dtype=float))
+
     dist_cosine = distance_matrix(data,cosine_distance)
     silhouette_score_cosine = metrics.silhouette_score(dist_cosine,label,metric='precomputed')
     plt.imshow(dist_cosine,cmap='autumn')
@@ -40,7 +43,7 @@ def calcSiCHAffy(data,label,name):
     plt.close()
     
 
-    dist_hellinger= distance_matrix(data,hellinger)
+    dist_hellinger= distance_matrix_np(normed_data,hellinger)
     silhouette_score_hellinger = metrics.silhouette_score(dist_hellinger,label,metric='precomputed')
     plt.imshow(dist_hellinger,cmap='autumn')
     plt.colorbar()
@@ -49,7 +52,7 @@ def calcSiCHAffy(data,label,name):
 
 
 
-    dist_wasserstein= distance_matrix(data,wasserstein_distance)
+    dist_wasserstein= distance_matrix_np(normed_data,wasserstein_distance)
     silhouette_score_wasserstein = metrics.silhouette_score(dist_wasserstein,label,metric='precomputed')
     plt.imshow(dist_wasserstein,cmap='autumn')
     plt.colorbar()
@@ -71,8 +74,16 @@ def calcSiCHAffy(data,label,name):
     plt.savefig('Affy/distance_map/'+name[0:len(name)-4] +'_kulczynski.jpg')
     plt.close()
 
+   # dist_jk = distance_matrix(data,jack_knife)
+  #  silhouette_jk = metrics.silhouette_score(dist_jk,label,metric='precomputed')
+  #  plt.imshow(dist_jk,cmap='autumn')
+  #  plt.colorbar()
+ #  plt.savefig('Affy/distance_map/'+name[0:len(name)-4] +'_jackknife.jpg')
+ #   plt.close() # ,silhouette_jk ubaci kad budes racunao i njega. spor je
+
 
     CH = metrics.calinski_harabaz_score(data,label)
+    DB = metrics.davies_bouldin_score(data,label)
     return [name,silhouette_score_cosine,silhouette_score_braycurtis, silhouette_score_canberra,silhouette_score_correlation,
-    silhouette_score_hellinger,silhouette_score_wasserstein,silhouette_energy_distance,silhouette_kulczynski,CH]
-
+    silhouette_score_hellinger,silhouette_score_wasserstein,silhouette_energy_distance,silhouette_kulczynski,CH,DB]
+    

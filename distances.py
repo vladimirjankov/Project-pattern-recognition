@@ -2,6 +2,8 @@
 import math
 from numpy import dot,isfinite,zeros,shape,rank,where
 from numpy.linalg import norm
+from astropy.stats import jackknife_resampling
+from scipy.stats import wasserstein_distance
 
 def cosine_distance(p,q):
     return  1- dot(p, q)/(norm(p)*norm(q))
@@ -66,6 +68,20 @@ def dist_kulczynski(datamtx, strict=True):
                 cur_d = 1.0 - (((rowminsum/irowsum) + (rowminsum/jrowsum))/2.0)
             dists[i][j] = dists[j][i] = cur_d
     return dists
+
+
+
+def jack_knife(p,q):
+    p_jk_resampling = jackknife_resampling(p)
+    q_jk_resampling = jackknife_resampling(q)
+    min_dist = wasserstein_distance(p_jk_resampling[0,:],q_jk_resampling[0,:])
+    m,k = p_jk_resampling.shape
+    for i in range(1,m):
+        temp_dist = wasserstein_distance(p_jk_resampling[i,:],q_jk_resampling[i,:])
+        if min_dist > temp_dist:
+            min_dist = temp_dist
+        
+    return min_dist
 
 
 
