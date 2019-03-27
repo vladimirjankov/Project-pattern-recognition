@@ -53,6 +53,12 @@ data_book.close()
    #         0.6706 je najveci koeficijent za sill i dobijen je sa wasserstein_distancom...
 #jackknife  uradjen sa wasserstein_distancom umesto pearsonovom ..
 
+# dodaj euklidsko
+# ARI sa kmeans predikcijom
+# sa novim normalizacijama
+# bez novih normalizacija
+# uradi u zasebnom fajlu nove normalizacije i ARI
 
+# proveri funkcije dal rade... na prvi pogled sve deluje okej 
 
 
