@@ -24,8 +24,9 @@ def ari_scores_normed(data,labels):
    # dist_eucl= distance_matrix(data,eucl_distance)
 
   #  cosine_labels = iterate_k_means(data,,300,cosine_distance)
-    cosine_label = k_means(data, np.max(np.unique(labels))-1, correlation)
-    ari_cosine = metrics.adjusted_rand_score(labels,cosine_labels)
+   # labels = np.transpose(labels)
+    cosine_label = k_means(data, np.max(np.unique(labels)), correlation)
+    ari_cosine = metrics.adjusted_rand_score(np.reshape(labels,(labels.shape[0],)),cosine_label)
 
     return ari_cosine
 

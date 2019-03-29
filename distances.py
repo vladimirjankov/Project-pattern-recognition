@@ -8,8 +8,6 @@ from scipy.stats import wasserstein_distance
 def cosine_distance(p,q):
     return  1- dot(p, q)/(norm(p)*norm(q))
 
-def eucl_distance(p,q):
-    return  math.sqrt(math.pow((p-q),2))
 
 
 def hellinger(p, q):
