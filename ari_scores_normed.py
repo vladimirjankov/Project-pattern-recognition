@@ -11,7 +11,7 @@ import numpy as np
 
 
 
-def ari_scores_normed(data,labels):
+def ari_scores_normed(data,labels,name):
     data = normalise_data(data) 
     labels = np.array(labels)
     lbls =np.reshape(labels,(labels.shape[0],))
@@ -48,5 +48,5 @@ def ari_scores_normed(data,labels):
 #radi normalno
 
 
-    return [ari_cosine,ari_braycurtis,ari_correlation,ari_canberra,ari_hellinger,ari_wasserstein,ari_energy,ari_kulczynski,ari_eucl]
+    return [name,ari_cosine,ari_braycurtis,ari_correlation,ari_canberra,ari_hellinger,ari_wasserstein,ari_energy,ari_kulczynski,ari_eucl]
 
