@@ -1,10 +1,10 @@
 from sklearn import metrics,cluster
 
-from scipy.spatial.distance import braycurtis,canberra,correlation,euclidean,cosine
+from scipy.spatial.distance import braycurtis,canberra,correlation,euclidean
 from scipy.stats import wasserstein_distance, energy_distance,cosine
 from support_functions import distance_matrix,normalise_data,distance_matrix_np
 from PIL import Image
-from distances import hellinger,cosine_distance,dist_kulczynski, jack_knife,dist_kulczynski_vectors
+from distances import hellinger,cosine_distance,dist_kulczynski, jack_knife,dist_kulczynski_vectors,cosine_distance
 from matplotlib import pyplot as plt
 from clustering_alg import k_means
 import numpy as np
@@ -15,7 +15,7 @@ def ari_scores_normed(data,labels):
     data = normalise_data(data) 
     labels = np.array(labels)
     lbls =np.reshape(labels,(labels.shape[0],))
-    cosine_label = k_means(data, np.max(np.unique(labels)),cosine)
+    cosine_label = k_means(data, np.max(np.unique(labels)),cosine_distance)
     ari_cosine = metrics.adjusted_rand_score(lbls,cosine_label)
 
     braycurtis_label = k_means(data, np.max(np.unique(labels)), braycurtis)

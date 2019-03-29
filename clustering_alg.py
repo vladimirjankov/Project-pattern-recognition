@@ -56,7 +56,9 @@ def k_means(data, k, dist_func):
 
 
 
-
+#RuntimeWarning: invalid value encountered in true_divide
+ # cenroids.append(cenroid/counter)
+ #nesto se ovde cudno desava... 
 
 
 
