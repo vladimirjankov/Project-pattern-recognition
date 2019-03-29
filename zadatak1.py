@@ -3,6 +3,7 @@ import pandas as pd
 import os
 from calcSiCHAffy import calcSiCHAffy
 from matplotlib import pyplot as plt
+from ari_scores_normed import ari_scores_normed
 import xlsxwriter
 
 
@@ -25,6 +26,8 @@ for i in range(0,len(data_file_names)):
     data = pd.read_csv(path_data_tmp, delimiter=' ')
     label = pd.read_csv(path_label+ label_file_names[i], delimiter=' ')
     label = np.array(label)
+    ari = ari_scores_normed(np.array(data,dtype=float),label)
+    print(ari)
     scores.append(calcSiCHAffy(data,np.ravel(label),data_file_names[i]))
 print('\n')
 print(scores)
