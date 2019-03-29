@@ -10,7 +10,7 @@ def cosine_distance(p,q):
     normq = np.linalg.norm(q)
     normp = np.linalg.norm(p)
     cos = dot / (normp * normq)
-    return  cos
+    return  1-cos
 
 
 

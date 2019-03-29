@@ -13,18 +13,18 @@ def cluster_init(data,k,centorids,distance):
     clusters = []
     centorids = np.array(centorids,dtype=float)
     for i in range(0,data.shape[0]):
-        min_distance = 5000000.0
+        min_distance = 500000000.0
         k=0
         
         for j in range(0,centorids.shape[0]):
-            dist = np.sum(distance(data[i,:],centorids[j]))
+            dist = distance(data[i,:],centorids[j,:])
             if(min_distance > dist) :
                 k =j+1
                 min_distance = dist
                
         clusters.append(k)        
 
-    return np.array(clusters, dtype=float)
+    return np.array(clusters, dtype=int)
 
 def new_centroid_cal(data,clusters,k):
     cenroids = []
@@ -33,10 +33,10 @@ def new_centroid_cal(data,clusters,k):
         counter = 0
         for j in range(0,data.shape[0]):
             if clusters[j] == i:
-                cenroid = data[j,:]
+                cenroid = cenroid + data[j,:]
                 counter = counter +1
         cenroids.append(cenroid/counter)
-    return cenroids
+    return np.array(cenroids,dtype=float)
 ## greska mala izmeni nakon tusiranja
 
 
@@ -59,6 +59,7 @@ def k_means(data, k, dist_func):
 #RuntimeWarning: invalid value encountered in true_divide
  # cenroids.append(cenroid/counter)
  #nesto se ovde cudno desava... 
+ #debaguje lagano 
 
 
 
