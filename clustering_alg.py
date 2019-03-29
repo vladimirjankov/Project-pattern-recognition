@@ -17,7 +17,7 @@ def cluster_init(data,k,centorids,distance):
         k=0
         
         for j in range(0,centorids.shape[0]):
-            dist = distance(data[i,:],centorids[j])
+            dist = np.sum(distance(data[i,:],centorids[j]))
             if(min_distance > dist) :
                 k =j+1
                 min_distance = dist

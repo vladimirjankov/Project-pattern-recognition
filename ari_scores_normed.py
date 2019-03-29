@@ -1,9 +1,10 @@
 from sklearn import metrics,cluster
-from scipy.spatial.distance import braycurtis,canberra,correlation
+
+from scipy.spatial.distance import braycurtis,canberra,correlation,euclidean,cosine
 from scipy.stats import wasserstein_distance, energy_distance,cosine
 from support_functions import distance_matrix,normalise_data,distance_matrix_np
 from PIL import Image
-from distances import hellinger,cosine_distance,dist_kulczynski, jack_knife
+from distances import hellinger,cosine_distance,dist_kulczynski, jack_knife,dist_kulczynski_vectors
 from matplotlib import pyplot as plt
 from clustering_alg import k_means
 import numpy as np
@@ -13,20 +14,40 @@ import numpy as np
 def ari_scores_normed(data,labels):
     data = normalise_data(data) 
     labels = np.array(labels)
- #   dist_cosine = distance_matrix(data,cosine_distance)
- #   dist_braycurtis = distance_matrix(data,braycurtis)   
-  #  dist_canberra = distance_matrix(data,canberra)
-  #  dist_correlation = distance_matrix(data,correlation)
-  #  dist_hellinger= distance_matrix_np(normed_data,hellinger)
-  #  dist_wasserstein= distance_matrix_np(normed_data,wasserstein_distance)
-  #  dist_energy_distance= distance_matrix(data,energy_distance)
-   # dist_kulczyn= dist_kulczynski(np.array(data),strict=True)
-   # dist_eucl= distance_matrix(data,eucl_distance)
+    lbls =np.reshape(labels,(labels.shape[0],))
+    cosine_label = k_means(data, np.max(np.unique(labels)),cosine)
+    ari_cosine = metrics.adjusted_rand_score(lbls,cosine_label)
 
-  #  cosine_labels = iterate_k_means(data,,300,cosine_distance)
-   # labels = np.transpose(labels)
-    cosine_label = k_means(data, np.max(np.unique(labels)), correlation)
-    ari_cosine = metrics.adjusted_rand_score(np.reshape(labels,(labels.shape[0],)),cosine_label)
+    braycurtis_label = k_means(data, np.max(np.unique(labels)), braycurtis)
+    ari_braycurtis = metrics.adjusted_rand_score(lbls,braycurtis_label)
+ #radi normalno
 
-    return ari_cosine
+    correlation_label = k_means(data, np.max(np.unique(labels)), correlation)
+    ari_correlation = metrics.adjusted_rand_score(lbls,correlation_label)
+#radi normalno
+
+    canberra_label = k_means(data, np.max(np.unique(labels)), canberra)
+    ari_canberra = metrics.adjusted_rand_score(lbls,canberra_label)
+#radi normalno
+    hellinger_label = k_means(data, np.max(np.unique(labels)), hellinger)
+    ari_hellinger = metrics.adjusted_rand_score(lbls,hellinger_label)
+#radi normalno
+    wasserstein_distance_label = k_means(data, np.max(np.unique(labels)), wasserstein_distance)
+    ari_wasserstein = metrics.adjusted_rand_score(lbls,wasserstein_distance_label)
+#radi normalno
+
+    energy_distance_label = k_means(data, np.max(np.unique(labels)), energy_distance)
+    ari_energy = metrics.adjusted_rand_score(lbls,energy_distance_label)
+#radi normalno
+
+    kulczynski_label = k_means(data, np.max(np.unique(labels)), dist_kulczynski_vectors)
+    ari_kulczynski = metrics.adjusted_rand_score(lbls,kulczynski_label)
+#radi normalno
+    eucl_label = k_means(data, np.max(np.unique(labels)), euclidean)
+    ari_eucl = metrics.adjusted_rand_score(lbls,eucl_label)
+#radi normalno
+
+#jos samo cosine izbacuje rv_frozen ....
+
+    return [ari_cosine,ari_braycurtis,ari_correlation,ari_canberra,ari_hellinger,ari_wasserstein,ari_energy,ari_kulczynski,ari_eucl]
 

@@ -4,9 +4,10 @@ from numpy import dot,isfinite,zeros,shape,rank,where
 from numpy.linalg import norm
 from astropy.stats import jackknife_resampling
 from scipy.stats import wasserstein_distance
+from sklearn.metrics.pairwise import cosine_similarity
 
 def cosine_distance(p,q):
-    return  1- dot(p, q)/(norm(p)*norm(q))
+    return  1-cosine_similarity(p,q)
 
 
 
@@ -14,7 +15,7 @@ def hellinger(p, q):
     return sum([ (math.sqrt(p_i) - math.sqrt(q_i))**2 for p_i, q_i in zip(p,q) ])
 
 
-def dist_kulczynski(datamtx, strict=True):
+def dist_kulczynski(datamtx, strict=False):
     """ calculates the kulczynski distances between rows of a matrix
     
     see for example Faith et al., composiitonal dissimilarity, 1987
@@ -35,6 +36,12 @@ def dist_kulczynski(datamtx, strict=True):
     (0, 0) ).  If 0 rows or 0 colunms, also returns an empty 2d array.
     """
     if strict:
+        try:
+            numrows, numcols = shape(datamtx)
+        except ValueError:
+            return zeros((0,0),'d')
+        
+    else:
         if not isfinite(datamtx).all:
             raise ValueError("non finite number in input matrix")
 #        if (datamtx.any<0.0):
@@ -42,11 +49,7 @@ def dist_kulczynski(datamtx, strict=True):
         if rank(datamtx) != 2:
             raise ValueError("input matrix not 2D")
         numrows, numcols = shape(datamtx)
-    else:
-        try:
-            numrows, numcols = shape(datamtx)
-        except ValueError:
-            return zeros((0,0),'d')
+
 
     if numrows == 0 or numcols == 0:
         return zeros((0,0),'d')
@@ -69,6 +72,22 @@ def dist_kulczynski(datamtx, strict=True):
                 cur_d = 1.0 - (((rowminsum/irowsum) + (rowminsum/jrowsum))/2.0)
             dists[i][j] = dists[j][i] = cur_d
     return dists
+
+def dist_kulczynski_vectors(p,q):
+    rowsum1 = p.sum()
+    rowsum2 = q.sum()
+    cur_d =0
+    rowminsum = float(sum(where(p<q, p,q)))
+    if (rowsum1 == 0.0 and rowsum2 == 0.0):
+        cur_d = 0.0
+    elif (rowsum1 == 0.0 or rowsum2 == 0.0):
+        cur_d = 1.0 
+    else:
+        cur_d = 1.0 - (((rowminsum/rowsum1) + (rowminsum/rowsum2))/2.0)
+    return cur_d
+
+
+
 
 
 
