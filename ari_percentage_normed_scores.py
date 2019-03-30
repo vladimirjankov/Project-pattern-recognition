@@ -3,7 +3,7 @@ import pandas as pd
 import os
 from calcSiCHAffy import calcSiCHAffy
 from matplotlib import pyplot as plt
-from ari_scores_normed import ari_scores_normed
+from ari_scores_percentage_normed import ari_scores_percentage_normed
 import plotly.plotly as py
 import plotly.graph_objs as go
 from support_functions import rgb_color_random
@@ -32,7 +32,7 @@ for i in range(0,len(data_file_names)):
     path_data_tmp = path_data + data_file_names[i]
     data = pd.read_csv(path_data_tmp, delimiter=' ')
     label = pd.read_csv(path_label+ label_file_names[i], delimiter=' ')
-    ari = ari_scores_normed(np.array(data,dtype=float),label,data_file_names[i])
+    ari = ari_scores_percentage_normed(np.array(data,dtype=float),label,data_file_names[i],0.1,0.05)
     scores.append(ari)
 print('\n')
 print(scores)
@@ -74,7 +74,7 @@ layout = go.Layout(
 )
 
 fig = go.Figure(data=data, layout=layout)
-pio.write_image(fig, file='ari_normed_scores.png', format='png')
+pio.write_image(fig, file='ari_percentage_normed_scores.png', format='png')
 
 
 

@@ -49,4 +49,3 @@ def ari_scores_normed(data,labels,name):
 
 
     return [name,ari_cosine,ari_braycurtis,ari_correlation,ari_canberra,ari_hellinger,ari_wasserstein,ari_energy,ari_kulczynski,ari_eucl]
-

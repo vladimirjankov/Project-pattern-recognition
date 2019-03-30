@@ -1,4 +1,5 @@
 import numpy as np
+import random as rd
 
 def distance_matrix(data,metr):
     m , k = data.shape
@@ -37,9 +38,10 @@ def percentage_normalise(data,p1,p2):
         # p2 treshold zastupljenosti gena u svim uzorcima 
 
         data = normalise_data(data)
-        data_smaller = np.array([])
-        counter = 0
+        data_smaller = []
+        
         for i in range(0,data.shape[1]):
+                counter = 0
                 data[:,i] = data[:,i]/max(data[:,i])
                 for j in range(0, data.shape[0]):
                         if data[j,i] < p1:
@@ -48,7 +50,7 @@ def percentage_normalise(data,p1,p2):
                 
                 if (counter/float(data.shape[0])) >p2 : 
                         data_smaller.append(data[:,i])
-        return data_smaller
+        return np.array(data_smaller,dtype=float)
 
 def percentage_binary_normalise(data,p1,p2):
         # p1 treshold ispod kog je gen ne bitan
@@ -66,7 +68,13 @@ def percentage_binary_normalise(data,p1,p2):
                         
         return data_smaller
                         
+def rgb_color_random():
+        R = rd.randint(0,255)
+        G = rd.randint(0,255)
+        B = rd.randint(0,255)
+        return 'rgb('+str(R)+','+str(G)+','+str(B)+')'
 
+'rgb(49,130,189)'
 
 
 

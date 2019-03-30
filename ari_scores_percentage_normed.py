@@ -11,8 +11,8 @@ import numpy as np
 
 
 
-def ari_scores_percentage_normed(data,labels,p1,p2):
-    data = percentage_normalise(data,p1,p2) 
+def ari_scores_percentage_normed(data,labels,file,p1,p2):
+    data = np.transpose(percentage_normalise(data,p1,p2) )
     labels = np.array(labels)
     lbls =np.reshape(labels,(labels.shape[0],))
     cosine_label = k_means(data, np.max(np.unique(labels)),cosine_distance)
@@ -48,5 +48,5 @@ def ari_scores_percentage_normed(data,labels,p1,p2):
 #radi normalno
 
 
-    return [ari_cosine,ari_braycurtis,ari_correlation,ari_canberra,ari_hellinger,ari_wasserstein,ari_energy,ari_kulczynski,ari_eucl]
+    return [file,ari_cosine,ari_braycurtis,ari_correlation,ari_canberra,ari_hellinger,ari_wasserstein,ari_energy,ari_kulczynski,ari_eucl]
 
