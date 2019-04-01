@@ -57,7 +57,7 @@ def percentage_binary_normalise(data,p1,p2):
         # p2 treshold zastupljenosti gena u svim uzorcima 
 
         data = normalise_data(data)
-        data_smaller = np.array([])
+        data_smaller = []
         counter = 0
         for i in range(0,data.shape[1]):
                 data[:,i] = data[:,i]/max(data[:,i])
@@ -66,7 +66,7 @@ def percentage_binary_normalise(data,p1,p2):
                 if (counter/float(data.shape[0])) >p2 : 
                         data_smaller.append(data[:,i])
                         
-        return data_smaller
+        return np.array(data_smaller,dtype=float)
                         
 def rgb_color_random():
         R = rd.randint(0,255)
