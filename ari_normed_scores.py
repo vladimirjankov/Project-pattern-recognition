@@ -4,7 +4,6 @@ import os
 from calcSiCHAffy import calcSiCHAffy
 from matplotlib import pyplot as plt
 from ari_scores_normed import ari_scores_normed
-import plotly.plotly as py
 import plotly.graph_objs as go
 from support_functions import rgb_color_random
 import xlsxwriter
@@ -13,8 +12,8 @@ import plotly.io as pio
 
 
 
-path_data = '/home/vladimir/Desktop/po_projekat/Affy/data/'
-path_label = '/home/vladimir/Desktop/po_projekat/Affy/labels/'
+path_data = '/home/milica/Desktop/po/projekat_po1/Affy/data/'
+path_label = '/home/milica/Desktop/po/projekat_po1/Affy/labels/'
 file_header = (["   ", "Silhouette_cosine","Silhouette_braycurtis","Silhouette_canberra", "Silhouette_pearson", "Silhouette_hellinger","Silhouette_wasserstein",
     "Silhouette_energy","Silhouette_kulczynski","Calinski_harabaz","Davies_Bouldin"])
 
@@ -24,7 +23,7 @@ data_file_names =  sorted(os.listdir(path_data))
 label_file_names =  sorted(os.listdir(path_label))
 
 scores = []
-data_book = xlsxwriter.Workbook("ARI_normed_results.xlsx")
+data_book = xlsxwriter.Workbook("/home/milica/Desktop/po/projekat_po1/Affy/ARI/ARI_normed_results.xlsx")
 worksheet = data_book.add_worksheet()
 
 
@@ -56,10 +55,10 @@ for file_scores in scores:
 data_book.close()
 
 trace = []
-for i in range(1,len(distance_names)):
+for i in range(0,len(distance_names)):
     trace1 = go.Bar(
         x=data_file_names,
-        y= scores[i][1:],
+        y= scores[i+1][1:],
         name=distance_names[i],
         marker=dict(
             color=rgb_color_random()
@@ -74,7 +73,7 @@ layout = go.Layout(
 )
 
 fig = go.Figure(data=data, layout=layout)
-pio.write_image(fig, file='ari_normed_scores.png', format='png')
+pio.write_image(fig, file='/home/milica/Desktop/po/projekat_po1/Affy/ARI/ari_normed_scores.png', format='png')
 
 
 
