@@ -35,7 +35,11 @@ def new_centroid_cal(data,clusters,k):
             if clusters[j] == i:
                 cenroid = cenroid + data[j,:]
                 counter = counter +1
-        cenroids.append(cenroid/counter)
+        centTemp = np.zeros(cenroid.shape)
+        if counter > 0:
+            centTemp = cenroid/counter
+
+        cenroids.append(centTemp)
     return np.array(cenroids,dtype=float)
 ## greska mala izmeni nakon tusiranja
 

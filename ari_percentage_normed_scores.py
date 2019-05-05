@@ -11,9 +11,8 @@ import xlsxwriter
 import plotly.io as pio
 
 
-
-path_data = '/home/milica/Desktop/po/projekat_po1/Affy/data/'
-path_label = '/home/milica/Desktop/po/projekat_po1/Affy/labels/'
+path_data = '/home/vladimir/Desktop/po_projekat/Affy/data/'
+path_label = '/home/vladimir/Desktop/po_projekat/Affy/labels/'
 file_header = (["   ", "Silhouette_cosine","Silhouette_braycurtis","Silhouette_canberra", "Silhouette_pearson", "Silhouette_hellinger","Silhouette_wasserstein",
     "Silhouette_energy","Silhouette_kulczynski","Calinski_harabaz","Davies_Bouldin"])
 
@@ -23,7 +22,7 @@ data_file_names =  sorted(os.listdir(path_data))
 label_file_names =  sorted(os.listdir(path_label))
 
 scores = []
-data_book = xlsxwriter.Workbook("/home/milica/Desktop/po/projekat_po1/Affy/ARI/ARI_percentage_normed_results.xlsx")
+data_book = xlsxwriter.Workbook("/home/vladimir/Desktop/po_projekat/Affy/ARI/ARI_percentage_normed_results.xlsx")
 worksheet = data_book.add_worksheet()
 
 
@@ -55,25 +54,29 @@ for file_scores in scores:
 data_book.close()
 
 trace = []
+scrs = [scores[i][1:10] for i in range(0,21)]
+scrs = np.array(scrs)
+
 for i in range(0,len(distance_names)):
     trace1 = go.Bar(
         x=data_file_names,
-        y= scores[i+1][1:],
+        y= scrs[:,i],
         name=distance_names[i],
         marker=dict(
             color=rgb_color_random()
         )
     )
     trace.append(trace1)
+    print(scrs[:,i])
 
 data = trace
 layout = go.Layout(
-    xaxis=dict(tickangle=-45),
+   # xaxis=dict(tickangle=-45),
     barmode='group',
 )
 
 fig = go.Figure(data=data, layout=layout)
-pio.write_image(fig, file='/home/milica/Desktop/po/projekat_po1/Affy/ARI/ari_percentage_normed_scores.png', format='png')
+pio.write_image(fig, file='/home/vladimir/Desktop/po_projekat/Affy/ARI/ari_percentage_normed_scores.png', format='png')
 
 
 
