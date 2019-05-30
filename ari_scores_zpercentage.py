@@ -59,9 +59,10 @@ def ari_scores_zpercentage_normed(data,labels,name,p1,p2):
         eucl_label = k_means(data, np.max(np.unique(labels)), euclidean)
         ari_eucl = ari_eucl + metrics.adjusted_rand_score(lbls,eucl_label)
 #radi normalno
-    tmp = np.array([ari_cosine,ari_braycurtis,ari_correlation,ari_canberra,ari_wasserstein,ari_energy,ari_kulczynski,ari_eucl]) / 25
-
-    return [name, tmp.tolist()]
+    tmp = [ari_cosine,ari_braycurtis,ari_correlation,ari_canberra,ari_wasserstein,ari_energy,ari_kulczynski,ari_eucl]
+    tmp = [x / 25 for x in tmp ]
+    tmp.insert(0,name)
+    return tmp
 
 # -*- coding: utf-8 -*-
 #ari_hellinger
