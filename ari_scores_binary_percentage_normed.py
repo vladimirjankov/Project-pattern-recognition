@@ -39,7 +39,7 @@ def ari_scores_binary_percentage_normed(data,labels,file,p1,p2):
         ari_rogerstanimoto = ari_rogerstanimoto+metrics.adjusted_rand_score(lbls,rogerstanimoto_label)
 #radi normalno
         russellrao_label = k_means(data, np.max(np.unique(labels)), russellrao)
-        ari_russellrao =ari_russellrao+ari_russellrao+ metrics.adjusted_rand_score(lbls,russellrao_label)
+        ari_russellrao =ari_russellrao+ metrics.adjusted_rand_score(lbls,russellrao_label)
 #radi normalno
 
         sokalmichener_label = k_means(data, np.max(np.unique(labels)), sokalmichener)
@@ -52,7 +52,8 @@ def ari_scores_binary_percentage_normed(data,labels,file,p1,p2):
         yule_label = k_means(data, np.max(np.unique(labels)), yule)
         ari_yule = ari_yule +metrics.adjusted_rand_score(lbls,yule_label)
 #radi normalno
-    tmp = np.array([ari_dice,ari_hamming,ari_jaccard,ari_rogerstanimoto,ari_russellrao,ari_russellrao,ari_sokalmichener,ari_sokalsneath,ari_yule])/25
-
-    return [file,tmp.tolist()]
+    tmp = [ari_dice,ari_hamming,ari_jaccard,ari_rogerstanimoto,ari_russellrao,ari_russellrao,ari_sokalmichener,ari_sokalsneath,ari_yule]
+    tmp = [x / 25 for x in tmp ]
+    tmp.insert(0,file)
+    return tmp
 

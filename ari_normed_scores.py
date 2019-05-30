@@ -36,6 +36,7 @@ for i in range(0,len(data_file_names)):
 print('\n')
 print(scores)
 
+scores = [item[0] for item in scores]
 row =1
 col =0
 
@@ -47,13 +48,17 @@ col = 0
 
 for file_scores in scores:
     for item in file_scores:
-        worksheet.write(row,col,item)
-        col = col +1
+       worksheet.write(row,col,item)
+       col = col +1
     row = row +1
     col =0
 
 data_book.close()
+
+
+
 scrs = [scores[i][1:10] for i in range(0,21)]
+
 scrs = np.array(scrs)
 
 trace = []
@@ -95,5 +100,3 @@ pio.write_image(fig, file='/home/vladimir/Desktop/po_projekat/Affy/ARI/ari_norme
 # uradi u zasebnom fajlu nove normalizacije i ARI
 
 # proveri funkcije dal rade... na prvi pogled sve deluje okej 
-
-

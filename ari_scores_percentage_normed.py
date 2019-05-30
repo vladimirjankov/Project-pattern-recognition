@@ -57,8 +57,9 @@ def ari_scores_percentage_normed(data,labels,file,p1,p2):
         ari_eucl = ari_eucl + metrics.adjusted_rand_score(lbls,eucl_label)
 #radi normalno
     tmp = np.array([ari_cosine,ari_braycurtis,ari_correlation,ari_canberra,ari_hellinger,ari_wasserstein,ari_energy,ari_kulczynski,ari_eucl]) / 25
-
-    return [file, tmp.tolist()]
+    tmp = [x / 25 for x in tmp ]
+    tmp.insert(0,file)
+    return tmp
 
 
 
