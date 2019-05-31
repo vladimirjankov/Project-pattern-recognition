@@ -115,3 +115,4 @@ def rgb_color_random():
 
 
 
+# prati smanjenje dimenzionalnosti :) 
